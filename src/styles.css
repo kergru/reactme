@@ -1,0 +1,417 @@
+/**
+ * Global presentation layer for the React feature guide, including the
+ * responsive code/render panels and demo component states.
+ */
+:root {
+  color: #202124;
+  background: #f5f7fb;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+.button-link {
+  align-items: center;
+  background: #1f6feb;
+  border: 1px solid #1f6feb;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: 700;
+  min-height: 40px;
+  padding: 0 14px;
+  text-decoration: none;
+}
+
+button:hover,
+.button-link:hover {
+  background: #185abc;
+}
+
+input {
+  border: 1px solid #b8c1d1;
+  border-radius: 6px;
+  font: inherit;
+  min-height: 40px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.app-header {
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #dfe3eb;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  padding: 24px clamp(16px, 4vw, 48px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header h1 {
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.eyebrow {
+  color: #5a6475;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+.top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.top-nav a {
+  border: 1px solid #cfd6e4;
+  border-radius: 6px;
+  color: #26344d;
+  font-weight: 700;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
+.top-nav a.active {
+  background: #26344d;
+  border-color: #26344d;
+  color: #fff;
+}
+
+.page {
+  display: grid;
+  gap: 28px;
+  padding: 28px clamp(16px, 4vw, 48px) 48px;
+}
+
+.example-section {
+  background: #fff;
+  border: 1px solid #dfe3eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.section-heading {
+  border-bottom: 1px solid #dfe3eb;
+  padding: 18px 20px;
+}
+
+.section-heading h2 {
+  font-size: 1.25rem;
+  margin: 0 0 4px;
+}
+
+.section-heading p {
+  color: #5a6475;
+  margin: 0;
+}
+
+.example-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+  min-height: 260px;
+}
+
+.code-panel,
+.render-panel {
+  min-width: 0;
+  padding: 16px;
+}
+
+.code-panel {
+  background: #101820;
+  color: #d6e3f0;
+}
+
+.render-panel {
+  background: #f8fafc;
+  border-left: 1px solid #dfe3eb;
+}
+
+.panel-label {
+  color: #7b8798;
+  font-size: 0.76rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.code-panel .panel-label {
+  color: #8db3df;
+}
+
+pre {
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9rem;
+}
+
+.render-surface {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 206px;
+}
+
+.demo-card,
+.status-box,
+.theme-preview,
+.test-list {
+  background: #fff;
+  border: 1px solid #d8deea;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgb(15 23 42 / 8%);
+  padding: 20px;
+  width: min(100%, 360px);
+}
+
+.demo-card h3 {
+  margin: 0 0 6px;
+}
+
+.demo-card p,
+.status-box p,
+.theme-preview p {
+  margin: 0;
+}
+
+.stack,
+.form-demo {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  width: min(100%, 360px);
+}
+
+.metric {
+  color: #0f766e;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-box {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.pulse {
+  background: #16a34a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px rgb(22 163 74 / 14%);
+  flex: 0 0 14px;
+  height: 14px;
+  width: 14px;
+}
+
+.form-demo {
+  background: #fff;
+  border: 1px solid #d8deea;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.form-demo label {
+  color: #354052;
+  display: grid;
+  font-weight: 700;
+  gap: 6px;
+  width: 100%;
+}
+
+.checkbox-row {
+  align-items: center;
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.checkbox-row input {
+  min-height: auto;
+  width: auto;
+}
+
+.success {
+  color: #0f766e;
+  font-weight: 700;
+  margin: 0;
+}
+
+.warning {
+  color: #9a3412;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hint {
+  color: #5a6475;
+  margin: 0;
+}
+
+.field-label {
+  color: #354052;
+  display: grid;
+  font-weight: 700;
+  gap: 6px;
+  width: 100%;
+}
+
+.compact-list {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.compact-list li {
+  background: #eef4ff;
+  border: 1px solid #cbdaf5;
+  border-radius: 6px;
+  color: #26344d;
+  padding: 6px 8px;
+}
+
+.status-pill {
+  border-radius: 999px;
+  font-weight: 800;
+  padding: 8px 12px;
+}
+
+.status-pill.on {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.off {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.memo-child {
+  border: 1px solid #cbdaf5;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+.memo-child p {
+  color: #354052;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modal-backdrop {
+  align-items: center;
+  background: rgb(15 23 42 / 48%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 20px;
+  position: fixed;
+  z-index: 100;
+}
+
+.modal-panel {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgb(15 23 42 / 32%);
+  display: grid;
+  gap: 12px;
+  max-width: 360px;
+  padding: 20px;
+  width: 100%;
+}
+
+.modal-panel h3,
+.modal-panel p {
+  margin: 0;
+}
+
+.theme-preview.dark {
+  background: #202124;
+  border-color: #202124;
+  color: #fff;
+}
+
+.test-list {
+  display: grid;
+  gap: 8px;
+}
+
+.test-list span {
+  border-bottom: 1px solid #e4e8f0;
+  padding-bottom: 8px;
+}
+
+.test-list span:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.route-page {
+  margin: 48px auto;
+  max-width: 720px;
+  padding: 0 20px;
+}
+
+.route-page h2 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+
+.route-page p:not(.eyebrow) {
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 860px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .example-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .render-panel {
+    border-left: 0;
+    border-top: 1px solid #dfe3eb;
+  }
+}

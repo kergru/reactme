@@ -1,0 +1,9 @@
+// Coordinates the TypeScript project references used by the Vite application
+// and the Node-based configuration files.
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
