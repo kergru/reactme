@@ -7,7 +7,7 @@ export async function fetchUser() {
   if (!response.ok) {
     throw new Error('User request failed');
   }
-  return response.json();
+  return parseJsonResponse(response);
 }
 
 export async function fetchProfile() {
@@ -15,5 +15,15 @@ export async function fetchProfile() {
   if (!response.ok) {
     throw new Error('Profile request failed');
   }
+  return parseJsonResponse(response);
+}
+
+async function parseJsonResponse(response) {
+  const contentType = response.headers.get('content-type') ?? '';
+
+  if (contentType.includes('text/html')) {
+    throw new Error('Expected JSON response');
+  }
+
   return response.json();
 }
